@@ -1,14 +1,5 @@
 #include "ed1621.h"
 
-uint32_t oled_timer = 0;
-
-bool process_record_user_oled(uint16_t keycode, keyrecord_t *record) {
-    if (record->event.pressed) {
-        oled_timer = timer_read32();
-    }
-    return true;
-}
-
 void render_default_layer_state(void) {
     oled_write_P(PSTR(OLED_RENDER_LAYOUT_NAME), false);
     switch (get_highest_layer(default_layer_state)) {
@@ -23,47 +14,76 @@ void render_default_layer_state(void) {
             case _HANDSDOWN:
                 oled_write_P(PSTR(OLED_RENDER_LAYOUT_HANDSDOWN_ALT_TX), false);
                 break;
+        #elif defined HANDSDOWN_ROLL
+            case _HANDSDOWN:
+                oled_write_P(PSTR(OLED_RENDER_LAYOUT_HANDSDOWN_ROLL), false);
+                break;
         #else
             case _HANDSDOWN:
                 oled_write_P(PSTR(OLED_RENDER_LAYOUT_HANDSDOWN), false);
                 break;
         #endif
     }
-    #ifdef OLED_DISPLAY_128X64
-        oled_advance_page(true);
-    #endif
-}
-
-void render_layer_state(void) {
-    oled_write_P(PSTR(OLED_RENDER_LAYER_NAME), false);
 #ifdef OLED_DISPLAY_128X64
-    oled_write_P(PSTR(" "), false);
-    oled_write_P(PSTR(OLED_RENDER_LAYER_COMMANDS), layer_state_is(_COMMANDS));
-    oled_write_P(PSTR(" "), false);
-    oled_write_P(PSTR(OLED_RENDER_LAYER_FKEYS), layer_state_is(_FUNCTIONKEYS));
-    oled_write_P(PSTR(" "), false);
-    oled_write_P(PSTR(OLED_RENDER_LAYER_NUMPAD), layer_state_is(_NUMPAD));
-    oled_write_P(PSTR(" "), false);
-    oled_write_P(PSTR(OLED_RENDER_LAYER_MEDIA), layer_state_is(_MEDIA));
-    oled_write_P(PSTR(" "), false);
-    oled_write_P(PSTR(OLED_RENDER_LAYER_SYMBOLS), layer_state_is(_SYMBOLS));
-    oled_write_P(PSTR(" "), false);
-    oled_write_P(PSTR(OLED_RENDER_LAYER_GAMING), layer_state_is(_GAMING));
-#else
-    oled_write_P(PSTR(OLED_RENDER_LAYER_COMMANDS), layer_state_is(_COMMANDS));
-    oled_write_P(PSTR(OLED_RENDER_LAYER_FKEYS), layer_state_is(_FUNCTIONKEYS));
-    oled_write_P(PSTR(OLED_RENDER_LAYER_NUMPAD), layer_state_is(_NUMPAD));
-    oled_write_P(PSTR(OLED_RENDER_LAYER_MEDIA), layer_state_is(_MEDIA));
-    oled_write_P(PSTR(OLED_RENDER_LAYER_SYMBOLS), layer_state_is(_SYMBOLS));
-    oled_write_P(PSTR(OLED_RENDER_LAYER_GAMING), layer_state_is(_GAMING));
+    oled_advance_page(true);
 #endif
 }
 
-void render_keylock_status(uint8_t led_usb_state) {
-    oled_write_P(PSTR(OLED_RENDER_LOCK_NAME), false);
-    oled_write_P(PSTR(OLED_RENDER_LOCK_NUML), led_usb_state & (1 << USB_LED_NUM_LOCK));
-    oled_write_P(PSTR(" "), false);
-    oled_write_P(PSTR(OLED_RENDER_LOCK_CAPS), led_usb_state & (1 << USB_LED_CAPS_LOCK));
+static void render_layer_state(void) {
+    oled_write_P(PSTR(OLED_RENDER_LAYER_NAME), false);
+
+    switch (get_highest_layer(layer_state)) {
+        case _QWERTY:
+        case _HANDSDOWN:
+            oled_write_P(PSTR("Base"), false);
+            break;
+        case _COMMANDS:
+            oled_write_P(PSTR(OLED_RENDER_LAYER_COMMANDS), false);
+        break;
+        case _FUNCTIONKEYS:
+            oled_write_P(PSTR(OLED_RENDER_LAYER_FKEYS), false);
+        break;
+        case _NUMPAD:
+            oled_write_P(PSTR(OLED_RENDER_LAYER_NUMPAD), false);
+        break;
+        case _MEDIA:
+            oled_write_P(PSTR(OLED_RENDER_LAYER_MEDIA), false);
+        break;
+        case _SYMBOLS:
+            oled_write_P(PSTR(OLED_RENDER_LAYER_SYMBOLS), false);
+        break;
+        case _GAMING:
+            oled_write_P(PSTR(OLED_RENDER_LAYER_GAMING), false);
+        break;
+        default:
+            oled_write_P(PSTR("N/A"), false);
+    }
+}
+
+void render_keylock_status(void) {
+    led_t led_state = host_keyboard_led_state();
+    oled_write_P(PSTR("\n\n"), false);
+    if (led_state.num_lock) {
+        oled_write_P(PSTR(""), false);
+        oled_write_P(PSTR(OLED_RENDER_LOCK_NAME), false);
+        oled_write_P(PSTR(OLED_RENDER_LOCK_NUML), false);
+    }
+    else if (led_state.caps_lock) {
+        oled_write_P(PSTR(""), false);
+        oled_write_P(PSTR(OLED_RENDER_LOCK_NAME), false);
+        oled_write_P(PSTR(OLED_RENDER_LOCK_CAPS), false);
+        #ifdef HAPTIC_ENABLE
+            haptic_enable();
+            haptic_set_feedback(1);
+        #endif
+    }
+    else {
+        oled_write_P(PSTR("            "), false);
+        #ifdef HAPTIC_ENABLE
+            haptic_disable();
+            haptic_set_feedback(0);
+        #endif
+    }
 }
 
 __attribute__((weak)) void oled_driver_render_logo(void) {
@@ -76,26 +96,12 @@ __attribute__((weak)) void oled_driver_render_logo(void) {
     oled_write_P(qmk_logo, false);
 }
 
-void render_status_secondary(void) {
-    oled_driver_render_logo();
-}
-
-void render_status_main(void) {
-    render_default_layer_state();
-    render_layer_state();
-    render_keylock_status(host_keyboard_leds());
-}
-
 void oled_task_user(void) {
     if (is_keyboard_master()) {
-        if (timer_elapsed32(oled_timer) > 30000) {
-            oled_off();
-            return;
-        } else {
-            oled_on();
-        }
-        render_status_main();  // Renders the current keyboard state (layer, lock, caps, scroll, etc)
+        render_default_layer_state();
+        render_layer_state();
+        render_keylock_status();
     } else {
-        render_status_secondary();
+        oled_driver_render_logo();
     }
 }

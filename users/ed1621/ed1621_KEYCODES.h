@@ -5,7 +5,7 @@
 
 enum userspace_keycodes {
     LAMBDA = PLACEHOLDER_SAFE_RANGE,
-    HDR_QUESTION,
+    HDR_QUES,
     HDR_MINS,
     HDR_SLSH,
     HDR_DQT,

@@ -1,4 +1,5 @@
 SRC += ed1621.c
+
 ifeq ($(strip $(COMBO_ENABLE)), yes)
 	SRC += ed1621_COMBO.c
 endif

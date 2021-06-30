@@ -1,6 +1,6 @@
+
 #include "ed1621.h"
 
-static uint32_t keyhold_timer = 0;
 #ifdef HANDSDOWN_ELAN
     const uint16_t PROGMEM H_Q_combo[] = {KC_QUOT, KC_U, COMBO_END}; // TYPE "q"
     const uint16_t PROGMEM H_Z_combo[] = {KC_QUOT, KC_X, COMBO_END}; // TYPE "z"
@@ -30,6 +30,12 @@ static uint32_t keyhold_timer = 0;
     const uint16_t PROGMEM H_QU_combo[] = {KC_K, KC_U, COMBO_END}; // TYPE "qu"
 #endif
 
+#ifdef HANDSDOWN_ROLL
+    const uint16_t PROGMEM H_Z_combo[] = {KC_J, KC_G, COMBO_END}; // TYPE "z"
+    const uint16_t PROGMEM H_Q_combo[] = {KC_J, KC_M, COMBO_END}; // TYPE "q"
+
+    const uint16_t PROGMEM H_QU_combo[] = {KC_J, KC_G, COMBO_END}; // TYPE "qu"
+#endif
 const uint16_t PROGMEM H_LM_combo[] = {KC_G, KC_M, COMBO_END}; // TYPE "LM"
 const uint16_t PROGMEM H_LF_combo[] = {KC_M, KC_F, COMBO_END}; // TYPE "lf"
 const uint16_t PROGMEM H_GL_combo[] = {KC_V, KC_G, COMBO_END}; // TYPE "gl"
@@ -38,35 +44,44 @@ const uint16_t PROGMEM H_LK_combo[] = {KC_X, KC_C, COMBO_END}; // TYPE "lk"
 enum custom_combos {
     HC_Q,
     HC_Z,
-    HC_BSLS,
-    HC_ASTRSK,
-    HC_LBRC,
-    HC_RBRC,
-    HC_TYPE_LM,
-    HC_TYPE_LF,
-    HC_TYPE_CK,
-    HC_TYPE_GL,
-    HC_TYPE_LK,
+
+    #ifndef HANDSDOWN_ROLL
+        HC_BSLS,
+        HC_ASTRSK,
+        HC_LBRC,
+        HC_RBRC,
+    #endif
+        HC_TYPE_LM,
+        HC_TYPE_LF,
+        HC_TYPE_CK,
+        HC_TYPE_GL,
+        HC_TYPE_LK,
+
+    HC_TYPE_QU,
+
     #ifdef HANDSDOWN_ELAN
         HC_PLUS,
         HC_HASH,
     #endif
+
     #ifdef HANDSDOWN_ALT_TX
         HC_SCLN,
         HC_CLN,
         HC_EXCL,
         HC_AT,
-        HC_TYPE_QU,
     #endif
 };
 
 combo_t key_combos[COMBO_COUNT] = {
     [HC_Q] = COMBO(H_Q_combo, KC_Q),
     [HC_Z] = COMBO(H_Z_combo, KC_Z),
-    [HC_BSLS] = COMBO(H_BSLS_combo, KC_BSLS),
-    [HC_ASTRSK] = COMBO(H_ASTRSK_combo, KC_ASTR),
-    [HC_LBRC] = COMBO(H_LBRC_combo, KC_LBRC),
-    [HC_RBRC] = COMBO(H_RBRC_combo, KC_RBRC),
+    #ifndef HANDSDOWN_ROLL
+        [HC_BSLS] = COMBO(H_BSLS_combo, KC_BSLS),
+        [HC_ASTRSK] = COMBO(H_ASTRSK_combo, KC_ASTR),
+        [HC_LBRC] = COMBO(H_LBRC_combo, KC_LBRC),
+        [HC_RBRC] = COMBO(H_RBRC_combo, KC_RBRC),
+        [HC_TYPE_CK] = COMBO_ACTION(H_CK_combo),
+    #endif
     #ifdef HANDSDOWN_ELAN
         [HC_PLUS] = COMBO(H_PLUS_combo, KC_PLUS),
         [HC_HASH] = COMBO(H_HASH_combo, KC_HASH),
@@ -81,7 +96,6 @@ combo_t key_combos[COMBO_COUNT] = {
 
     [HC_TYPE_LM] = COMBO_ACTION(H_LM_combo),
     [HC_TYPE_LF] = COMBO_ACTION(H_LF_combo),
-    [HC_TYPE_CK] = COMBO_ACTION(H_CK_combo),
     [HC_TYPE_GL] = COMBO_ACTION(H_GL_combo),
     [HC_TYPE_LK] = COMBO_ACTION(H_LK_combo),
     [HC_TYPE_QU] = COMBO_ACTION(H_QU_combo),

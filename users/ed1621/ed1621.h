@@ -1,29 +1,8 @@
 #pragma once
-#ifndef USERSPACE
-    #define USERSPACE
-#endif
 
 #include QMK_KEYBOARD_H
-#include <stdio.h>
-#include "process_combo.h"
 
 #define MASTER_LEFT
-#define TAP_CODE_DELAY 5
-
-#ifdef TAPPING_TOGGLE
-    #undef TAPPING_TOGGLE
-#endif
-#define TAPPING_TOGGLE 2
-
-#ifdef TAPPING_TERM
-    #undef TAPPING_TERM
-#endif
-#define TAPPING_TERM 180
-
-#define TAP_HOLD_CAPS_DELAY 0
-#define PERMISSIVE_HOLD
-#define IGNORE_MOD_TAP_INTERRUPT
-#define DEBOUNCE 5
 
 enum userspace_layers {
     _QWERTY = 0,
@@ -37,8 +16,10 @@ enum userspace_layers {
 };
 
 
-uint8_t combo_on = 0;
-bool combo_triggered = false;
+extern uint8_t combo_on;
+extern bool combo_triggered;
+extern uint32_t keyhold_timer;
+
 void matrix_scan_user_process_combo(void);
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 
@@ -59,6 +40,8 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 #ifdef TAP_DANCE_ENABLE
     #define COMM_COMMAND TD(COMM_LAYR)
     #define DOT_NUMPAD TD(DOT_LAYR)
+    #define SHIFT_NUMPAD TD(SFT_LAYR)
+    #define ALT_MEDIA TD(ALT_LAYR)
     #define GRAVE_ESC TD(GR_ESC)
 #endif
 

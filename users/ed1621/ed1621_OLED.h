@@ -9,12 +9,13 @@ extern uint32_t oled_timer;
 
 #ifdef OLED_DISPLAY_128X64
     #define OLED_RENDER_LAYOUT_NAME    "Layout: "
-    #define OLED_RENDER_LAYOUT_QWERTY  "Qwerty"
-    #define OLED_RENDER_LAYOUT_HANDSDOWN "Handsdown"
-    #define OLED_RENDER_LAYOUT_HANDSDOWN_ELAN "Handsdown\nElan"
-    #define OLED_RENDER_LAYOUT_HANDSDOWN_ALT_TX "Handsdown\nAlt-Tx"
+    #define OLED_RENDER_LAYOUT_QWERTY  "Qwerty\n"
+    #define OLED_RENDER_LAYOUT_HANDSDOWN "Handsdown\n"
+    #define OLED_RENDER_LAYOUT_HANDSDOWN_ELAN "HndwnElan\n"
+    #define OLED_RENDER_LAYOUT_HANDSDOWN_ALT_TX "HndwnAltTx\n"
+    #define OLED_RENDER_LAYOUT_HANDSDOWN_ROLL "HndwnRoll\n"
 
-    #define OLED_RENDER_LAYER_NAME   "Layer:"
+    #define OLED_RENDER_LAYER_NAME   "Layer: "
     #define OLED_RENDER_LAYER_COMMANDS   "Commands"
     #define OLED_RENDER_LAYER_FKEYS   "Function Keys"
     #define OLED_RENDER_LAYER_NUMPAD   "Numpad"
@@ -23,7 +24,7 @@ extern uint32_t oled_timer;
     #define OLED_RENDER_LAYER_GAMING   "Gaming"
 
 
-    #define OLED_RENDER_LOCK_NAME "Lock:"
+    #define OLED_RENDER_LOCK_NAME "Lock: "
     #define OLED_RENDER_LOCK_NUML "NUML"
     #define OLED_RENDER_LOCK_CAPS "CAPS"
 #else

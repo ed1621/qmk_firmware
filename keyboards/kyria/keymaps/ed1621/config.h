@@ -1,10 +1,12 @@
 #pragma once
 
+#define NO_ACTION_MACRO
+#define NO_ACTION_FUNCTION
 #ifdef OLED_DRIVER_ENABLE
     #define OLED_DISPLAY_128X64
 #endif
 
-#ifdef RGB_ENABLE
+#ifdef RGBLIGHT_ENABLE
     #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
     #define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_SWIRL
     #define RGBLIGHT_HUE_STEP 50
@@ -15,7 +17,7 @@
     #ifdef COMBO_COUNT
         #undef COMBO_COUNT
     #endif
-    #define COMBO_COUNT 11
+    #define COMBO_COUNT 20
 
     #define COMBO_ALLOW_ACTION_KEYS
 
@@ -45,7 +47,15 @@
     #define F_LRA 205 /* resonance freq */
 #endif
 
-#define HANDSDOWN_ELAN
+#define HANDSDOWN_ALT_TX
 
+#define TAP_CODE_DELAY 5
+#define TAPPING_TOGGLE 2
+#define TAPPING_TERM 180
+
+#define TAP_HOLD_CAPS_DELAY 0
+#define PERMISSIVE_HOLD
+#define IGNORE_MOD_TAP_INTERRUPT
+#define DEBOUNCE 5
 
 
