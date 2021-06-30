@@ -1,135 +1,8 @@
-#include QMK_KEYBOARD_H
-#include "users/ed1621/config.h"
-
-#ifdef HAPTIC_ENABLE
-    #include "haptic.h"
-    extern haptic_config_t haptic_config;
-    void haptic_disable(void);
-    void haptic_enable(void);
-    void haptic_set_feedback(uint8_t feedback);
-#endif
-
-#define XXX KC_NO
-#define ___ KC_TRNS
-#define U_RDO SCMD(KC_Z) //again
-#define U_PST LCMD(KC_V) //paste
-#define U_CPY LCMD(KC_C) //copy
-#define U_CUT LCMD(KC_X) //cut
-#define U_UND LCMD(KC_Z) //undo
-#define U_SVE LCMD(KC_S) //save
-#define U_TMX LCTL(KC_SPC) //tmux prefix
-
-typedef enum {
-    LAMBDA = SAFE_RANGE,
-} custom_keycodes;
-
-typedef enum {
-    _BASE,
-    _HANDSDOWN,
-    _COMMANDS,
-    _FUNCTIONKEYS,
-    _NUMPAD,
-    _MEDIA,
-    _SYMBOLS
-} layers;
-
-enum {
-    COMM_LAYR,
-    DOT_LAYR,
-    GR_ESC
-};
-
-typedef enum {
-    TD_NONE,
-    TD_UNKNOWN,
-    TD_SINGLE_TAP,
-    TD_SINGLE_HOLD,
-    TD_DOUBLE_TAP,
-    TD_TRIPLE_TAP,
-} td_state_t;
-
-typedef struct {
-    bool is_press_action;
-    td_state_t state;
-} td_tap_t;
-
-static td_tap_t ql_tap_state = {
-    .is_press_action = true,
-    .state = TD_NONE
-};
-
-td_state_t cur_dance(qk_tap_dance_state_t *state) {
-    if (state->count == 1) {
-        if(!state->pressed) return TD_SINGLE_TAP;
-        else return TD_SINGLE_HOLD;
-    }
-    else if (state->count == 2) {
-        if(!state->pressed) return TD_DOUBLE_TAP;
-        else return TD_UNKNOWN;
-    }
-    else if (state->count == 3) {
-        if(!state->pressed) return TD_TRIPLE_TAP;
-        else return TD_UNKNOWN;
-    }
-    else return TD_UNKNOWN;
-}
-
-void ql_finished(qk_tap_dance_state_t *state, void *user_data, uint16_t layer, uint8_t code) {
-    ql_tap_state.state = cur_dance(state);
-    switch (ql_tap_state.state) {
-        case TD_SINGLE_TAP:
-            tap_code(code);
-            break;
-        case TD_SINGLE_HOLD:
-            layer_on(layer);
-            break;
-        case TD_DOUBLE_TAP:
-            tap_code(code);
-            tap_code(code);
-            break;
-        case TD_TRIPLE_TAP:
-            tap_code(code);
-            tap_code(code);
-            tap_code(code);
-            break;
-        default:
-            break;
-    }
-}
-
-void ql_reset(qk_tap_dance_state_t *state, void *user_data, uint16_t layer) {
-    if (ql_tap_state.state == TD_SINGLE_HOLD) {
-        layer_off(layer);
-    }
-    ql_tap_state.state = TD_NONE;
-}
-
-void cl_finished(qk_tap_dance_state_t *state, void *user_data) {
-    ql_finished(state, user_data, _COMMANDS, KC_COMM);
-}
-
-void cl_reset(qk_tap_dance_state_t *state, void *user_data) {
-    ql_reset(state, user_data, _COMMANDS);
-}
-
-void dl_finished(qk_tap_dance_state_t *state, void *user_data) {
-    ql_finished(state, user_data, _NUMPAD, KC_DOT);
-}
-
-void dl_reset(qk_tap_dance_state_t *state, void *user_data) {
-    ql_reset(state, user_data, _NUMPAD);
-}
-
-
-qk_tap_dance_action_t tap_dance_actions[] = {
-    [COMM_LAYR] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, cl_finished, cl_reset, TAPPING_TERM),
-    [DOT_LAYR] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, dl_finished, dl_reset, TAPPING_TERM),
-    [GR_ESC] = ACTION_TAP_DANCE_DOUBLE(KC_GRV, KC_ESC)
-};
+#include "ed1621.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT(
-        TD(GR_ESC),  KC_Q,           KC_W,           KC_E,          KC_R,                     KC_T,                                                                          KC_Y,    KC_U,         KC_I,         KC_O,            KC_P,            KC_EQL,
+        GRAVE_ESC,  KC_Q,           KC_W,           KC_E,          KC_R,                     KC_T,                                                                          KC_Y,    KC_U,         KC_I,         KC_O,            KC_P,            KC_EQL,
         KC_TAB,      LGUI_T(KC_A),   LALT_T(KC_S),   LCTL_T(KC_D),  LSFT_T(KC_F),             KC_G,                                                                          KC_H,    LSFT_T(KC_J), LCTL_T(KC_K), LALT_T(KC_L),    LGUI_T(KC_SCLN), KC_QUOT,
         LAMBDA,      KC_Z,           KC_X,           KC_C,          LT(_FUNCTIONKEYS, KC_V),  KC_B,  KC_LSFT,                KC_LSFT,           KC_LSFT,            KC_LSFT, KC_N,    KC_M,         KC_COMM,      KC_DOT,          KC_SLSH,         KC_BSLS,
                                                                                 U_TMX, KC_CAPS, XXX, MO(_COMMANDS), LT(_NUMPAD, KC_MINS),       LT(_MEDIA, KC_SPC), LT(_SYMBOLS, KC_ENT),   XXX, XXX,  TT(_HANDSDOWN)
@@ -154,7 +27,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ___,      KC_V,         KC_G,         KC_M,         KC_F,                     KC_K,                                              KC_QUOT,  KC_U,         KC_O,         KC_X,            KC_B,            ___,
         ___,      LGUI_T(KC_R), LALT_T(KC_S), LCTL_T(KC_N), LSFT_T(KC_T),             KC_P,                                              KC_Y,     LSFT_T(KC_I), LCTL_T(KC_E), LALT_T(KC_A),    LGUI_T(KC_H),    KC_SCLN,
         ___,      KC_J,         KC_C,         KC_L,         LT(_FUNCTIONKEYS, KC_D),  KC_MINS, KC_LBRC, KC_LSFT,       KC_LSFT, KC_RBRC, KC_SLSH,  KC_W,         KC_LPRN,      KC_RPRN,         KC_EQL,          U_SVE,
-                                                        ___, ___, ___, TD(COMM_LAYR), TD(DOT_LAYR),                  ___, ___, ___, ___, ___
+                                                        ___, ___, ___, COMM_COMMAND, DOT_NUMPAD,                  ___, ___, ___, ___, ___
     ),
     #else // HANDSDOWN_ALT
     [_HANDSDOWN] = LAYOUT(
