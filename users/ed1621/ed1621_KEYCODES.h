@@ -5,13 +5,8 @@
 
 enum userspace_keycodes {
     LAMBDA = PLACEHOLDER_SAFE_RANGE,
-    HDR_QUES,
-    HDR_MINS,
-    HDR_SLSH,
-    HDR_DQT,
-    HDR_QUOT,
-    HDR_COMM,
-    HDR_DOT,
+    MAC_SLEEP,
+    MAC_LOCK
 };
 
 #define XXX KC_NO

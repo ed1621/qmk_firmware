@@ -13,7 +13,6 @@ extern uint32_t oled_timer;
     #define OLED_RENDER_LAYOUT_HANDSDOWN "Handsdown\n"
     #define OLED_RENDER_LAYOUT_HANDSDOWN_ELAN "HndwnElan\n"
     #define OLED_RENDER_LAYOUT_HANDSDOWN_ALT_TX "HndwnAltTx\n"
-    #define OLED_RENDER_LAYOUT_HANDSDOWN_ROLL "HndwnRoll\n"
 
     #define OLED_RENDER_LAYER_NAME   "Layer: "
     #define OLED_RENDER_LAYER_COMMANDS   "Commands"

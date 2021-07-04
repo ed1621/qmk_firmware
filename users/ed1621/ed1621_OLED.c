@@ -14,10 +14,6 @@ void render_default_layer_state(void) {
             case _HANDSDOWN:
                 oled_write_P(PSTR(OLED_RENDER_LAYOUT_HANDSDOWN_ALT_TX), false);
                 break;
-        #elif defined HANDSDOWN_ROLL
-            case _HANDSDOWN:
-                oled_write_P(PSTR(OLED_RENDER_LAYOUT_HANDSDOWN_ROLL), false);
-                break;
         #else
             case _HANDSDOWN:
                 oled_write_P(PSTR(OLED_RENDER_LAYOUT_HANDSDOWN), false);
@@ -52,7 +48,7 @@ static void render_layer_state(void) {
         case _SYMBOLS:
             oled_write_P(PSTR(OLED_RENDER_LAYER_SYMBOLS), false);
         break;
-        case _GAMING:
+        case _GAMES:
             oled_write_P(PSTR(OLED_RENDER_LAYER_GAMING), false);
         break;
         default:
