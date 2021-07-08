@@ -25,7 +25,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                                     }
                             break;
                         #ifdef HANDSDOWN_ELAN
-                            case KC_X: // IF KC_B precedes, then send L bc hand moved out of home block.
+                            case KC_D: // IF KC_B precedes, then send L bc hand moved out of home block.
                                 if ((prior_keycode == KC_B) && (timer_elapsed(prior_keydown) < ADAPTIVE_TERM)) {
                                     tap_code(KC_L); // quickly typing "bx" yields "bl"
                                     return_state = false; // don't do more with this record.

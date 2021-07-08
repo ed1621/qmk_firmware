@@ -10,8 +10,6 @@ typedef enum {
     TD_UNKNOWN,
     TD_SINGLE_TAP,
     TD_SINGLE_HOLD,
-    TD_DOUBLE_TAP,
-    TD_DOUBLE_HOLD,
     TD_TRIPLE_TAP,
 } td_state_t;
 
@@ -29,10 +27,6 @@ td_state_t cur_dance(qk_tap_dance_state_t *state) {
     if (state->count == 1) {
         if(!state->pressed) return TD_SINGLE_TAP;
         else return TD_SINGLE_HOLD;
-    }
-    else if (state->count == 2) {
-        if(!state->pressed) return TD_DOUBLE_TAP;
-        else return TD_DOUBLE_HOLD;
     }
     else if (state->count == 3) {
         if(!state->pressed) return TD_TRIPLE_TAP;
@@ -53,13 +47,6 @@ void master_finished(qk_tap_dance_state_t *state, void *user_data) {
         case TD_SINGLE_HOLD:
             layer_on(tap_data->layer);
             break;
-        case TD_DOUBLE_TAP:
-            tap_code(tap_data->code);
-            tap_code(tap_data->code);
-            break;
-        case TD_DOUBLE_HOLD:
-            layer_on(tap_data->layer);
-            break;
         case TD_TRIPLE_TAP:
             tap_code(tap_data->code);
             tap_code(tap_data->code);
@@ -76,9 +63,6 @@ void dbl_tap_master_finished(qk_tap_dance_state_t *state, void *user_data) {
     switch (ql_tap_state.state) {
         case TD_SINGLE_HOLD:
             register_code(tap_data->code);
-            break;
-        case TD_DOUBLE_HOLD:
-            layer_on(tap_data->layer);
             break;
         default:
             break;
@@ -99,9 +83,6 @@ void dbl_tap_master_reset(qk_tap_dance_state_t *state, void *user_data) {
 
     if (ql_tap_state.state == TD_SINGLE_HOLD) {
         unregister_code(tap_data->code);
-    }
-    if (ql_tap_state.state == TD_DOUBLE_HOLD) {
-        layer_off(tap_data->layer);
     }
     ql_tap_state.state = TD_NONE;
 }

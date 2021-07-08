@@ -1,4 +1,4 @@
-#include "ed1621.h"
+#include "handsdown-gold.h"
 
 // /*
 //  * Layer Template
@@ -45,79 +45,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LAMBDA,      _________________QWERTY_L3_________________, KC_LSFT,  KC_LSFT,           KC_LSFT, KC_LSFT, _________________QWERTY_R3_________________, KC_BSLS,
                             U_TMX, KC_CAPS, XXX, MO(_COMMANDS), LT(_NUMPAD, KC_MINS),          LT(_MEDIA, KC_SPC), LT(_SYMBOLS, KC_ENT),   XXX, TT(_GAMES),  DF(_HANDSDOWN)
     ),
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//*****************************************************//
-//                                                     //
-//                   HANDSDOWN LAYOUTS                 //
-//  https://sites.google.com/alanreiser.com/handsdown  //
-//                                                     //
-//*****************************************************//
 
-    #if defined (HANDSDOWN_ALT_TX)
-// /*
-//  * Handsdown Alt-Tx
+//  * Handsdown Gold
 //  *
 //  * ,------------------------------------------------.                                  ,------------------------------------------------.
-//  * |  ` Esc |   V   |   G   |   M   |   F   |   "   |                                  |   '   |   K   |   U   |   J   |   #   |        |
+//  * |  ` Esc |   X   |   K   |   M   |   F   |   V   |                                  |   ?   |   ,   |   .   |   "   |   '   |        |
 //  * |--------+-------+-------+-------+-------+-------|                                  |-------+-------+-------+-------+-------+--------|
-//  * |  Tab   | GUI/R | ALT/S | CTL/N | SFT/H |   P   |                                  |   Y   | SFT/I | CTL/E | ALT/O | GUI/A |        |
+//  * |  Tab   | GUI/R | ALT/S | CTL/N | SFT/H |   P   |                                  |   -   | SFT/A | CTL/E | ALT/O | GUI/C |        |
 //  * |--------+-------+-------+-------+-------+-------+---------------.  ,---------------+-------+-------+-------+-------+-------+--------|
-//  * | => ->  |   X   |   C   |   L   |   D   |   B   |       |       |  |       |       |  - _  |   W   |  / ?  |  , <  |  . >  |  TMUX  |
+//  * | => ->  |   W   |   G   |   L   |   D   |   B   |       |       |  |       |       |   /   |   U   |   O   |   Y   |   J   |  TMUX  |
 //  * `------------------------+-------+-------+-------+-------+-------|  |-------+-------+-------+-------+-------+------------------------'
-//  *                          |       |  CAPS |  FKEY | CMNDS | NUMPD |  | MEDIA | SMBLS |       | GAMES | QWERTY|
-//  *                          |       |       |       |   T   |  = +  |  | Space | Enter |       |       |       |
-//  *                          `---------------------------------------'  `---------------------------------------'
-//  */
-    [_HANDSDOWN] = LAYOUT(
-        ___,      KC_V,         KC_G,         KC_M,         KC_F,                     KC_DQT,                                KC_QUOT,  KC_K,         KC_U,         KC_J,            KC_HASH,         XXX,
-        ___,      LGUI_T(KC_R), LALT_T(KC_S), LCTL_T(KC_N), LSFT_T(KC_H),             KC_P,                                  KC_Y,     LSFT_T(KC_I), LCTL_T(KC_E), LALT_T(KC_O),    LGUI_T(KC_A),    XXX,
-        ___,      KC_X,         KC_C,         KC_L,         KC_D,                     KC_B, KC_LBRC, XXX,      XXX, KC_RBRC, KC_MINS,  KC_W,         KC_SLSH,      KC_COMM,         KC_DOT,          U_TMX,
-                                            XXX, ___, MO(_FUNCTIONKEYS), LT(_COMMANDS, KC_T), LT(_NUMPAD, KC_EQL),                    ___, ___, ___, ___, DF(_QWERTY)
-    ),
-    #elif defined (HANDSDOWN_ELAN)
-// /*
-//  * Handsdown Elan
-//  *
-//  * ,------------------------------------------------.                                  ,------------------------------------------------.
-//  * |  ` Esc |   V   |   G   |   M   |   F   |   K   |                                  |  ' "  |   U   |   O   |   X   |   B   |        |
-//  * |--------+-------+-------+-------+-------+-------|                                  |-------+-------+-------+-------+-------+--------|
-//  * |  Tab   | GUI/R | ALT/S | CTL/N | SFT/T |   P   |                                  |   Y   | SFT/I | CTL/E | ALT/A | GUI/H |  ; :   |
-//  * |--------+-------+-------+-------+-------+-------+---------------.  ,---------------+-------+-------+-------+-------+-------+--------|
-//  * | => ->  |   X   |   M   |   L   |   D   |   B   |       |       |  |       |       |   /   |   W   |   (   |   )   |  = +  |        |
-//  * `------------------------+-------+-------+-------+-------+-------|  |-------+-------+-------+-------+-------+------------------------'
-//  *                          |       |  CAPS |  FKEY | CMNDS | NUMPD |  | MEDIA | SMBLS |       | GAMES | QWERTY|
-//  *                          |       |       |       |  , <  |  . >  |  | Space | Enter |       |       |       |
+//  *                          |       |  CAPS |  FKEY | NUMPD | CMNDS |  | MEDIA | SMBLS |       | GAMES | QWERTY|
+//  *                          |       |       |       |       |   T   |  | Space | Enter |       |       |       |
 //  *                          `---------------------------------------'  `---------------------------------------'
     [_HANDSDOWN] = LAYOUT(
-        ___,      KC_W,         KC_G,         KC_M,         KC_F,                     KC_K,                                                       KC_QUOT,  KC_U,         KC_O,         KC_Y,            KC_V,            XXX,
-        ___,      LGUI_T(KC_R), LALT_T(KC_S), LCTL_T(KC_N), LSFT_T(KC_T),             KC_P,                                                       KC_X,     LSFT_T(KC_A), LCTL_T(KC_E), LALT_T(KC_I),    LGUI_T(KC_H),    KC_SCLN,
-        ___,      KC_J,         KC_C,         KC_L,         KC_D,                     KC_B,           XXX,          XXX,             XXX, XXX, KC_SLSH,  KC_MINS,     KC_LPRN,          KC_RPRN,         KC_EQL,          U_TMX,
-                                              XXX,          ___,                      MO(_FUNCTIONKEYS), COMM_COMMAND, DOT_NUMPAD,      ___, ___, ___,      ___,      DF(_QWERTY)
+        ___,      KC_X,         KC_K,         KC_M,         KC_F,                     KC_V,                          HG_QUES, HG_COMM,      HG_DOT,       HG_DQT,       HG_QUOT,         XXX,
+        ___,      LGUI_T(KC_R), LALT_T(KC_S), LCTL_T(KC_N), LSFT_T(KC_H),             KC_P,                          HG_MINS, LSFT_T(KC_A), LCTL_T(KC_E), LALT_T(KC_O), LGUI_T(KC_C),    XXX,
+        ___,      KC_W,         KC_G,         KC_L,         KC_D,                     KC_B, XXX, XXX,      XXX, XXX, HG_SLSH, KC_U,         KC_O,         KC_Y,         KC_J,            U_TMX,
+                            XXX, ___, MO(_FUNCTIONKEYS), MO(_NUMPAD), LT(_COMMANDS, KC_T),           ___, ___, ___, ___, DF(_QWERTY)
     ),
-    #else
-// /*
-//  * Handsdown Default
-//  *
-//  * ,------------------------------------------------.                                  ,------------------------------------------------.
-//  * |  ` Esc |   Q   |   C   |   H   |   P   |   V   |                                  |   K   |   Y   |   O   |   J   |  / ?  |        |
-//  * |--------+-------+-------+-------+-------+-------|                                  |-------+-------+-------+-------+-------+--------|
-//  * |  Tab   | GUI/R | ALT/S | CTL/N | SFT/T |   G   |                                  |   W   | SFT/U | CTL/E | ALT/I | GUI/A |  ; :   |
-//  * |--------+-------+-------+-------+-------+-------+---------------.  ,---------------+-------+-------+-------+-------+-------+--------|
-//  * | => ->  |   X   |   M   |   L   |   D   |   B   |       |       |  |       |       |   Z   |   F   |  ' "  |  , <  |  . >  |  TMUX  |
-//  * `------------------------+-------+-------+-------+-------+-------|  |-------+-------+-------+-------+-------+------------------------'
-//  *                          |       |  CAPS |  FKEY | CMNDS | NUMPD |  | MEDIA | SMBLS |       | GAMES | QWERTY|
-//  *                          |       |       |       |       |  - _  |  | Space | Enter |       |       |       |
-//  *                          `---------------------------------------'  `---------------------------------------'
-    [_HANDSDOWN] = LAYOUT(
-        ___,      KC_Q,         KC_C,         KC_H,         KC_P,                     KC_V,                                         KC_K,  KC_Y,         KC_O,         KC_J,            KC_SLSH,         XXX,
-        ___,      LGUI_T(KC_R), LALT_T(KC_S), LCTL_T(KC_N), LSFT_T(KC_T),             KC_G,                                         KC_W,  LSFT_T(KC_U), LCTL_T(KC_E), LALT_T(KC_I),    LGUI_T(KC_A),    KC_SCLN,
-        ___,      KC_X,         KC_M,         KC_L,         LT(_FUNCTIONKEYS, KC_D),  KC_B, KC_LBRC, KC_LSFT,     KC_LSFT, KC_RBRC, KC_Z,  KC_F,         KC_QUOT,      KC_COMM,         KC_DOT,          U_TMX,
-                                                                       XXX, ___, MO(_FUNCTIONKEYS), ___, ___,                    ___, ___, ___, ___, DF(_QWERTY)
-    ),
-    #endif
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// /*
 //  * Gaming
 //  *
 //  * ,------------------------------------------------.                                  ,------------------------------------------------.
@@ -138,7 +85,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                           KC_ESC, KC_L, KC_I, KC_SPC, KC_ENT,     XXX, XXX, XXX, ___, XXX
     ),
 
-// /*
 //  * Commands
 //  *
 //  * ,------------------------------------------------.                                  ,------------------------------------------------.
@@ -156,10 +102,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXX,  _________________CMMNDS_L1_________________,                          _________________CMMNDS_R1_________________, XXX,
         XXX,  _________________CMMNDS_L2_________________,                          _________________CMMNDS_R2_________________, XXX,
         XXX,  _________________CMMNDS_L3_________________, XXX, XXX,      XXX, XXX, _________________CMMNDS_R3_________________, XXX,
-                                    MAC_SLEEP, XXX,  XXX,  XXX, XXX,      KC_BSPC,  XXX,  SGUI(KC_4),  XXX, MAC_LOCK
+                                    XXX, XXX,  XXX,  XXX, XXX,      KC_BSPC,  XXX,  SGUI(KC_4),  XXX, MAC_LOCK
     ),
 
-// /*
 //  * Function Keys
 //  *
 //  * ,------------------------------------------------.                                  ,------------------------------------------------.
@@ -180,7 +125,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                 XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX
     ),
 
-// /*
 //  * Numpad
 //  *
 //  * ,------------------------------------------------.                                  ,------------------------------------------------.
@@ -201,7 +145,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                             XXX, XXX, XXX, XXX, XXX,    KC_BSPC, KC_0, KC_DOT, XXX, XXX
     ),
 
-// /*
 //  * Media
 //  *
 //  * ,------------------------------------------------.                                  ,------------------------------------------------.
@@ -222,7 +165,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                     XXX, XXX,  XXX,  KC_MUTE, XXX,    XXX, XXX, XXX, XXX, XXX
     ),
 
-// /*
 //  * Symbols
 //  *
 //  * ,------------------------------------------------.                                  ,------------------------------------------------.

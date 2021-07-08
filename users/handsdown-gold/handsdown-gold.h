@@ -24,25 +24,22 @@ extern uint32_t keyhold_timer;
 void matrix_scan_user_process_combo(void);
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 
+#include "keycodes.h"
+
 #ifdef COMBO_ENABLE
-    #include "ed1621_COMBO.h"
+    #include "combo.h"
 #endif
 #ifdef TAP_DANCE_ENABLE
-    #include "ed1621_TAPDANCES.h"
+    #include "tapdances.h"
 #endif
 #ifdef HAPTIC_ENABLE
     #include "haptic.h"
 #endif
 #ifdef OLED_DRIVER_ENABLE
-    #include "ed1621_OLED.h"
+    #include "oled.h"
 #endif
-#include "ed1621_KEYCODES.h"
 
 #ifdef TAP_DANCE_ENABLE
-    #define COMM_COMMAND TD(COMM_LAYR)
-    #define DOT_NUMPAD TD(DOT_LAYR)
-    #define SHIFT_NUMPAD TD(SFT_LAYR)
-    #define ALT_MEDIA TD(ALT_LAYR)
     #define GRAVE_ESC TD(GR_ESC)
 #endif
 

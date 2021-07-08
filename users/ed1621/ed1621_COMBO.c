@@ -3,18 +3,24 @@
 
 #ifdef HANDSDOWN_ELAN
 // Similar combo results across handsdown variants
-    const uint16_t PROGMEM H_Q_combo[] = {KC_QUOT, KC_U, COMBO_END}; // TYPE "q"
-    const uint16_t PROGMEM H_Z_combo[] = {KC_QUOT, KC_X, COMBO_END}; // TYPE "z"
-    const uint16_t PROGMEM H_BSLS_combo[] = {KC_SLSH, KC_EQL, COMBO_END}; // TYPE "\"
-    const uint16_t PROGMEM H_ASTRSK_combo[] = {KC_SLSH, KC_W, COMBO_END}; // TYPE "*"
+    const uint16_t PROGMEM H_Q_combo[] = {KC_F, KC_K, COMBO_END}; // TYPE "q"
+    const uint16_t PROGMEM H_Z_combo[] = {KC_J, KC_C, COMBO_END}; // TYPE "z"
+    const uint16_t PROGMEM H_BSLS_combo[] = {KC_SLSH, KC_LPRN, COMBO_END}; // TYPE "\"
+    const uint16_t PROGMEM H_ASTRSK_combo[] = {KC_SLSH, KC_MINS, COMBO_END}; // TYPE "*"
     const uint16_t PROGMEM H_LBRC_combo[] = {KC_W, KC_LPRN, COMBO_END}; // TYPE "["
-    const uint16_t PROGMEM H_RBRC_combo[] = {KC_LPRN, KC_RPRN, COMBO_END}; // TYPE "]"
-    const uint16_t PROGMEM H_QU_combo[] = {KC_QUOT, KC_U, COMBO_END}; // TYPE "qu"
-    const uint16_t PROGMEM H_CK_combo[] = {KC_F, KC_K, COMBO_END}; // TYPE "ck"
+    const uint16_t PROGMEM H_RBRC_combo[] = {KC_W, KC_RPRN, COMBO_END}; // TYPE "]"
+    const uint16_t PROGMEM H_QU_combo[] = {KC_F, KC_K, COMBO_END}; // TYPE "qu"
+    const uint16_t PROGMEM H_CK_combo[] = {KC_C, KC_L, COMBO_END}; // TYPE "ck"
 
 // Unique to Elan
-    const uint16_t PROGMEM H_PLUS_combo[] = {KC_SLSH, KC_MINS, COMBO_END}; // TYPE "+"
-    const uint16_t PROGMEM H_HASH_combo[] = {KC_RPRN, KC_EQL, COMBO_END}; // TYPE "#"
+    const uint16_t PROGMEM H_LT_combo[] = {KC_LPRN, KC_RPRN, COMBO_END}; // TYPE "<"
+    const uint16_t PROGMEM H_PLUS_combo[] = {KC_MINS, KC_LPRN, COMBO_END}; // TYPE "+"
+    const uint16_t PROGMEM H_GT_combo[] = {KC_RPRN, KC_EQL, COMBO_END}; // TYPE ">"
+    const uint16_t PROGMEM H_HASH_combo[] = {KC_LPRN, KC_EQL, COMBO_END}; // TYPE "#"
+    const uint16_t PROGMEM H_LK_combo[] = {KC_L, KC_D, COMBO_END}; // TYPE "lk"
+
+#else
+    const uint16_t PROGMEM H_LK_combo[] = {KC_X, KC_C, COMBO_END}; // TYPE "lk"
 #endif
 
 #ifdef HANDSDOWN_ALT_TX
@@ -41,7 +47,6 @@
 const uint16_t PROGMEM H_LM_combo[] = {KC_G, KC_M, COMBO_END}; // TYPE "lm"
 const uint16_t PROGMEM H_LF_combo[] = {KC_M, KC_F, COMBO_END}; // TYPE "lf"
 const uint16_t PROGMEM H_GL_combo[] = {KC_V, KC_G, COMBO_END}; // TYPE "gl"
-const uint16_t PROGMEM H_LK_combo[] = {KC_X, KC_C, COMBO_END}; // TYPE "lk"
 
 enum custom_combos {
     HC_Q,
@@ -54,6 +59,8 @@ enum custom_combos {
     #ifdef HANDSDOWN_ELAN
         HC_PLUS,
         HC_HASH,
+        HC_LT,
+        HC_GT,
     #endif
 
     #ifdef HANDSDOWN_ALT_TX
@@ -85,15 +92,17 @@ combo_t key_combos[COMBO_COUNT] = {
     #ifdef HANDSDOWN_ELAN
         [HC_PLUS] = COMBO(H_PLUS_combo, KC_PLUS),
         [HC_HASH] = COMBO(H_HASH_combo, KC_HASH),
+        [HC_LT] = COMBO(H_LT_combo, KC_LT),
+        [HC_GT] = COMBO(H_GT_combo, KC_GT),
     #endif
     #ifdef HANDSDOWN_ALT_TX
-        [HC_SCLN] = COMBO(H_SCLN_combo, KC_SCLN),
-        [HC_CLN] = COMBO(H_CLN_combo, KC_COLN),
         [HC_EXCL] = COMBO(H_EXCL_combo, KC_EXLM),
         [HC_LPRN] = COMBO(H_LPRN_combo, KC_LPRN),
         [HC_RPRN] = COMBO(H_RPRN_combo, KC_RPRN),
         [HC_AT] = COMBO(H_AT_combo, KC_AT),
         [HC_TYPE_LV] = COMBO_ACTION(H_LV_combo),
+        [HC_SCLN] = COMBO(H_SCLN_combo, KC_SCLN),
+        [HC_CLN] = COMBO(H_CLN_combo, KC_COLN),
     #endif
 
     [HC_TYPE_QU] = COMBO_ACTION(H_QU_combo),
@@ -185,7 +194,7 @@ void matrix_scan_user_process_combo() {
             #endif
                 case HC_TYPE_QU:
                     unregister_code(KC_Q);
-                    SEND_STRING("qu");
+                    SEND_STRING("u");
                     break;
             } // switch
             combo_triggered = true;

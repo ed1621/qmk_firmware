@@ -18,7 +18,7 @@
     #ifdef COMBO_COUNT
         #undef COMBO_COUNT
     #endif
-    #define COMBO_COUNT 20
+    #define COMBO_COUNT 25
 
     #define COMBO_ALLOW_ACTION_KEYS
 
@@ -47,8 +47,6 @@
     #define V_RMS 2.0
     #define F_LRA 205 /* resonance freq */
 #endif
-
-#define HANDSDOWN_ELAN
 
 #define TAP_CODE_DELAY 5
 #define TAPPING_TOGGLE 2
