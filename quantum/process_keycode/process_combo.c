@@ -19,7 +19,7 @@
 #include "action_tapping.h"
 
 
-ifdef COMBO_COUNT
+#ifdef COMBO_COUNT
 __attribute__((weak)) combo_t  key_combos[COMBO_COUNT];
 uint16_t COMBO_LEN = COMBO_COUNT;
 #else
@@ -81,9 +81,9 @@ static queued_combo_t combo_buffer[COMBO_BUFFER_LENGTH];
 #    define DEACTIVATE_COMBO(combo)  do {combo->active = false;}while(0)
 #    define DISABLE_COMBO(combo)     do {combo->disabled = true;}while(0)
 #    define RESET_COMBO_STATE(combo) do { \
-    combo->disabled = false; \
-    combo->state = 0; \
-}while(0)
+        combo->disabled = false; \
+        combo->state = 0; \
+    }while(0)
 #else
 /* flags are at the two high bits of state. */
 #    define COMBO_ACTIVE(combo)   (combo->state & 0x80)
@@ -95,11 +95,6 @@ static queued_combo_t combo_buffer[COMBO_BUFFER_LENGTH];
 #    define DISABLE_COMBO(combo)     do {combo->state |= 0x40;}while(0)
 #    define RESET_COMBO_STATE(combo) do {combo->state &= ~0x7F;}while(0)
 #endif
-    } else {
-        process_combo_event(combo_index, false);
-    }
-    combo->active = false;
-}
 
 static inline void release_combo(uint16_t combo_index, combo_t *combo) {
     if (combo->keycode) {
