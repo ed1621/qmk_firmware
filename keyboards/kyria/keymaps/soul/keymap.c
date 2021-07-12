@@ -27,30 +27,32 @@ enum userspace_layers {
 };
 
 enum userspace_keycodes {
-    LAMBDA = 0,
+    LAMBDA = SAFE_RANGE,
     MAC_LOCK
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (record->event.pressed) {
         switch (keycode) {
             case LAMBDA:
-                if (keyboard_report->mods & MOD_BIT (KC_LSFT)) {
-                    clear_mods();
-                    SEND_STRING("->");
-                }
-                else {
-                    SEND_STRING("=>");
+                if (record->event.pressed) {
+                    if (keyboard_report->mods & MOD_BIT (KC_LSFT)) {
+                        clear_mods();
+                        SEND_STRING("->");
+                    }
+                    else {
+                        SEND_STRING("=>");
+                    }
                 }
                 break;
             case MAC_LOCK:
-                tap_code16(C(G(KC_Q)));
+                if (record->event.pressed) {
+                    tap_code16(C(G(KC_Q)));
+                }
                 break;
         } // end switch (keycode)
-
-    } // end if(record->event.pressed)
     return true;
 };
+
 
 #define LAYOUT_wrapper(...)            LAYOUT(__VA_ARGS__)
 #define ___ KC_TRNS
@@ -80,8 +82,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_SOUL] = LAYOUT(
       KC_GRV,  KC_Q,          KC_W,          KC_L,         KC_D,           KC_P,                         KC_K,    KC_M,            KC_U,          KC_Y,           KC_SCLN,      KC_EQL,
       KC_TAB,  LGUI_T(KC_A),  LALT_T(KC_S),  LCTL_T(KC_R), LT(_NUMPAD, KC_T),   KC_G,                         KC_F,    LT(_SYMBOLS, KC_N),    LCTL_T(KC_E),  LALT_T(KC_I),   LGUI_T(KC_O), KC_QUOT,
-      LAMBDA,   KC_J,          KC_Z,          KC_X,         KC_C,           KC_V, KC_NO, KC_NO,     KC_NO, TMX, KC_B,    KC_H,            KC_COMM,       KC_DOT,         KC_SLSH,     KC_BSLS,
-                                    KC_NO,          KC_CAPS,            KC_ESC,  LSFT_T(KC_MINS), LT(_COMMANDS, KC_BSPC),     KC_SPC, LT(_MEDIA, KC_ENT), KC_NO,     KC_NO,             KC_NO
+      LAMBDA,   KC_J,          KC_Z,          KC_X,        LT(_FUNCTIONKEYS, KC_C),           KC_V, KC_NO, KC_NO,     KC_NO, TMX, KC_B,    KC_H,            KC_COMM,       KC_DOT,         KC_SLSH,     KC_BSLS,
+                                    KC_NO,          KC_CAPS,            KC_ESC,  LSFT_T(KC_BSPC), LT(_COMMANDS, KC_MINS),     LT(_MEDIA, KC_SPC), LSFT_T(KC_ENT), KC_NO,     KC_NO,             KC_NO
         ),
     // /*
 //  * Commands
@@ -101,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,  _________________CMMNDS_L1_________________,                          _________________CMMNDS_R1_________________, KC_NO,
         KC_NO,  _________________CMMNDS_L2_________________,                          _________________CMMNDS_R2_________________, KC_NO,
         KC_NO,  _________________CMMNDS_L3_________________, KC_NO, KC_NO,      KC_NO,  KC_NO, _________________CMMNDS_R3_________________, KC_NO,
-                                    KC_SLEP, KC_NO,  KC_NO,  KC_NO, KC_NO,      KC_NO,  KC_NO,  SGUI(KC_4),  KC_NO, MAC_LOCK
+                                    KC_SLEP, KC_NO,  KC_NO,  KC_NO, KC_NO,      KC_NO,  TMX,  SGUI(KC_4),  KC_NO, MAC_LOCK
     ),
 
 // /*
@@ -184,8 +186,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_SYMBOLS] = LAYOUT_wrapper(
         KC_NO, _________________SYMBLS_L1_________________,                              _________________EMPTY_ROW________________,  KC_NO,
         KC_NO, _________________SYMBLS_L2_________________,                              _________________SYMBLS_R2_________________, KC_NO,
-        KC_NO, _________________SYMBLS_L3_________________, KC_NO, KC_NO,          KC_NO, KC_NO, _________________EMPTY_ROW________________,  KC_NO,
-                               KC_NO, KC_LBRC, KC_RBRC, KC_LPRN, KC_RPRN,     KC_NO, KC_NO, KC_NO, KC_NO, KC_NO
+        KC_NO, _________________SYMBLS_L3_________________, KC_LBRC, KC_RBRC,          KC_NO, KC_NO, _________________EMPTY_ROW________________,  KC_NO,
+                               KC_NO, KC_LPRN, KC_RPRN, KC_LCBR, KC_RCBR,     KC_NO, KC_NO, KC_NO, KC_NO, KC_NO
     )
 };
 

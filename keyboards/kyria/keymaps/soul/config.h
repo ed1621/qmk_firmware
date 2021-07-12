@@ -54,10 +54,14 @@
 
 
 #define TAP_CODE_DELAY 5
-#define TAPPING_TERM 175
+#define TAPPING_TERM 275
 
 #define PERMISSIVE_HOLD
 #define IGNORE_MOD_TAP_INTERRUPT
-#define DEBOUNCE 5
+
+#ifdef DEBOUNCE
+    #undef DEBOUNCE
+    #define DEBOUNCE 9
+#endif
 
 
