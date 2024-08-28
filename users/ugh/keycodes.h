@@ -1,0 +1,19 @@
+#pragma once
+#include "ed1621.h"
+
+
+enum userspace_keycodes {
+    LAMBDA = QK_USER,
+    MAC_SLEEP,
+    MAC_LOCK
+};
+
+#define XXX KC_NO
+#define ___ KC_TRNS
+#define U_RDO SCMD(KC_Z) //again
+#define U_PST LCMD(KC_V) //paste
+#define U_CPY LCMD(KC_C) //copy
+#define U_CUT LCMD(KC_X) //cut
+#define U_UND LCMD(KC_Z) //undo
+#define U_SVE LCMD(KC_S) //save
+#define U_TMX LCTL(KC_SPC) //tmux prefix
