@@ -12,7 +12,7 @@ enum userspace_layers {
     _NUMPAD,
     _MEDIA,
     _SYMBOLS,
-    _GRAPHITE
+    _ALTLAYOUT
 };
 
 

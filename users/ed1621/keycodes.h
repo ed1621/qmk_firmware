@@ -6,8 +6,8 @@ enum userspace_keycodes {
     LAMBDA = QK_USER,
     LPARENS,
     RPARENS,
-    MAC_SLEEP,
-    MAC_LOCK
+    LTSLASH,
+    COMMQUES
 };
 
 #define XXX KC_NO

@@ -2,4 +2,4 @@
 
 
 #define EE_HANDS
-#define TAPPING_TERM 250
+#define TAPPING_TERM 300
