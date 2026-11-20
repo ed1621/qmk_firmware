@@ -10,11 +10,11 @@
 #define _________________QWERTY_L3_________________       KC_Z,    KC_X,    KC_C,    KC_V,    KC_B
 
 #define _________________QWERTY_R1_________________       KC_Y,    KC_U,    KC_I,    KC_O,    KC_P
-#define _________________QWERTY_R2_________________       KC_H,    LT(_MEDIA, KC_J),    LCTL_T(KC_K),    LALT_T(KC_L),    LGUI_T(KC_SCLN)
+#define _________________QWERTY_R2_________________       KC_H,    SFT_T(KC_J),    LCTL_T(KC_K),    LALT_T(KC_L),    LGUI_T(KC_SCLN)
 #define _________________QWERTY_R3_________________       KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH
 
 // COMMANDS Layer
-#define _________________CMMNDS_L1_________________       RESET,    XXX,      XXX,      XXX,      XXX
+#define _________________CMMNDS_L1_________________       XXX,    XXX,      XXX,      XXX,      XXX
 #define _________________CMMNDS_L2_________________       KC_LGUI,  KC_LALT,  KC_LCTL,  KC_LSFT,  XXX
 #define _________________CMMNDS_L3_________________       XXX,      XXX,      XXX,      XXX,      XXX
 
@@ -25,8 +25,8 @@
 
 // FUNCTIONKEYS Layer
 #define _________________FKEYS_R1__________________       XXX,  KC_F9,  KC_F10,  KC_F11,  KC_F12
-#define _________________FKEYS_R2__________________       XXX,  KC_F9,  KC_F10,  KC_F11,  KC_F12
-#define _________________FKEYS_R3__________________       XXX,  KC_F5,  KC_F6,   KC_F7,   KC_F8
+#define _________________FKEYS_R2__________________       XXX,  KC_F5,  KC_F6,   KC_F7,   KC_F8
+#define _________________FKEYS_R3_________________       XXX,  KC_F1,  KC_F2,  KC_F3,  KC_F4
 
 // NUMPAD Layer
 #define _________________NUMPD_R1__________________       XXX,  KC_7,   KC_8,    KC_9,   KC_MINS

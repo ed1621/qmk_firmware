@@ -1,3 +1,5 @@
+FLASH_BOOTLOADER= yes
+
 SRC += ed1621.c
 
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
@@ -16,5 +18,4 @@ ifeq ($(strip $(OLED_DRIVER_ENABLE)), yes)
 endif
 
 
-SRC += keycodes.c \
-			 matrix.c
+SRC += keycodes.c

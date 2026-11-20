@@ -8,11 +8,11 @@
 enum userspace_layers {
     _QWERTY = 0,
     _COMMANDS,
-    _FUNCTIONKEYS,
+    _FKEYS,
     _NUMPAD,
     _MEDIA,
     _SYMBOLS,
-    _GAMES,
+    _GRAPHITE
 };
 
 
