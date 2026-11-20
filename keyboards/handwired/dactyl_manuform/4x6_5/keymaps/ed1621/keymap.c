@@ -70,8 +70,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_ALTLAYOUT] = LAYOUT(
         KC_GRV,  KC_B,         KC_L,         KC_D,         KC_C,               KC_V,               KC_J,   KC_Y,     KC_O,         KC_U,         KC_COMM,      KC_EQL,
-        KC_TAB,  LGUI_T(KC_N), LALT_T(KC_R), LCTL_T(KC_T), LT(_COMMANDS,KC_S), KC_G,               KC_P,   KC_H, LCTL_T(KC_A), LALT_T(KC_E), LGUI_T(KC_I), KC_SLSH,
-        LAMBDA,  KC_X,         KC_Q,         KC_M,         KC_W,               KC_Z,               KC_K,   KC_P,  KC_QUOT,      KC_SCLN,       KC_DOT,         KC_BSLS,
+        KC_TAB,  LGUI_T(KC_N), LALT_T(KC_R), LCTL_T(KC_T), LT(_COMMANDS, KC_S), KC_G,               KC_P,   KC_H, LCTL_T(KC_A), LALT_T(KC_E), LGUI_T(KC_I), KC_SLSH,
+        LAMBDA,  KC_X,         KC_Q,         KC_M,         KC_W,               KC_Z,               KC_K,   KC_F,  KC_QUOT,      KC_SCLN,       KC_DOT,         KC_BSLS,
                                                                  XXX, XXX,                                  XXX, XXX,
                                                             KC_ESC,  KC_DEL,   MO(_FKEYS),                        DF(_QWERTY),    XXX,  KC_ENT,
                                                             SFT_T(KC_BSPC), MO(_NUMPAD),            MO(_SYMBOLS),  SFT_T(KC_SPC)
